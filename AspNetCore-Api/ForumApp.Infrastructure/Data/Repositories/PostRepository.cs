@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using ForumApp.Core;
 using ForumApp.Core.Exceptions;
 using ForumApp.Core.Interfaces;
@@ -25,6 +26,16 @@ namespace ForumApp.Infrastructure.Data.Repositories
         public Post Find(int id)
         {
             var post = _context.Posts.FirstOrDefault(p=> p.Id == id);
+
+            if (post == null)
+                throw new FindPostException(id);
+
+            return post;
+        }
+
+        public async Task<Post> FindAsync(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
                 throw new FindPostException(id);

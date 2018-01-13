@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForumApp.Domain\ForumApp.Core.csproj" />
+    <ProjectReference Include="..\ForumApp.Core\ForumApp.Core.csproj" />
   </ItemGroup>
 
 </Project>

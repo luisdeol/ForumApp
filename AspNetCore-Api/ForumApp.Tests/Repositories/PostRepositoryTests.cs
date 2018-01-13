@@ -4,13 +4,14 @@ using ForumApp.Core.Exceptions;
 using ForumApp.Tests.Helpers;
 using Xunit;
 
-namespace ForumApp.Tests
+namespace ForumApp.Tests.Repositories
 {
     public class PostRepositoryTests
     {
         [Fact]
         public void EmptyTable_AddPost_CountIsOne()
         {
+            //Arrange
             var context = InMemoryDatabaseHelper.GetDbContext("Add_Post_Db");
             var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
 
@@ -20,10 +21,12 @@ namespace ForumApp.Tests
                 CreationDate = DateTime.Now
             };
 
+            //Act
             postRepository.Add(post);
 
             context.SaveChanges();
 
+            //Assert
             Assert.Equal(1, post.Id);
         }
 
@@ -33,28 +36,43 @@ namespace ForumApp.Tests
         [InlineData(3)]
         public void TableWithThreeItems_FindForId_ReturnThePostWithId(int postId)
         {
-            var context = InMemoryDatabaseHelper.GetDbContext("Find_Post_Db");
-            var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
-            postRepository.Add(new Post
+            
+            using (var context = InMemoryDatabaseHelper.GetDbContext("Find_Post_Db"))
             {
-                Id = postId,
-                Content = $"Hi, Post nº {postId}",
-                CreationDate = DateTime.Now.AddDays(postId)
-            });
-            context.SaveChanges();
+                //Arrange
+                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+                postRepository.Add(new Post
+                {
+                    Id = postId,
+                    Content = $"Hi, Post nº {postId}",
+                    CreationDate = DateTime.Now.AddDays(postId)
+                });
+                context.SaveChanges();
+            }
 
-            var post = postRepository.Find(postId);
 
-            Assert.NotNull(post);
-            Assert.Equal(postId, post.Id);
+            
+            using (var context = InMemoryDatabaseHelper.GetDbContext("Find_Post_Db"))
+            {
+                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+
+                //Act
+                var post = postRepository.Find(postId);
+
+                //Assert
+                Assert.NotNull(post);
+                Assert.Equal(postId, post.Id);
+            }  
         }
 
         [Fact]
         public void EmptyTable_AddNullPost_ThrowPostNullException()
         {
+            //Arrange
             var context = InMemoryDatabaseHelper.GetDbContext("Add_NullPost_Db");
             var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
 
+            //Act + Assert
             Assert.Throws<AddPostException>(() => postRepository.Add(null));
         }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 
 namespace ForumApp.Core.Interfaces
 {
@@ -8,5 +6,6 @@ namespace ForumApp.Core.Interfaces
     {
         void Add(Post post);
         Post Find(int id);
+        Task<Post> FindAsync(int id);
     }
 }
