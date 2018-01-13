@@ -12,9 +12,9 @@ namespace ForumApp.Tests.Repositories
         [Fact]
         public void EmptyTable_AddPost_CountIsOne()
         {
-            //Arrange
             using (var context = InMemoryDatabaseHelper.GetDbContext("Add_Post_Db"))
             {
+                //Arrange
                 var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
                 var postBuilder = new PostBuilder();
                 var post = postBuilder.Build();
@@ -24,9 +24,9 @@ namespace ForumApp.Tests.Repositories
 
                 context.SaveChanges();
 
+                //Assert
                 Assert.Equal(1, post.Id);
             }
-                
         }
 
         [Theory]
@@ -34,31 +34,24 @@ namespace ForumApp.Tests.Repositories
         [InlineData(2)]
         [InlineData(3)]
         public void TableWithThreeItems_FindForId_ReturnThePostWithId(int postId)
-        {
-            
+        {  
             using (var context = InMemoryDatabaseHelper.GetDbContext("Find_Post_Db"))
             {
                 //Arrange
                 var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+
+                //Act
                 postRepository.Add(new Post
                 {
                     Id = postId,
                     Content = $"Hi, Post nº {postId}",
                     CreationDate = DateTime.Now.AddDays(postId)
                 });
+
                 context.SaveChanges();
-            }
-
-
-            
-            using (var context = InMemoryDatabaseHelper.GetDbContext("Find_Post_Db"))
-            {
-                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
-
-                //Act
-                var post = postRepository.Find(postId);
 
                 //Assert
+                var post = postRepository.Find(postId);
                 Assert.NotNull(post);
                 Assert.Equal(postId, post.Id);
             }  
@@ -67,12 +60,14 @@ namespace ForumApp.Tests.Repositories
         [Fact]
         public void EmptyTable_AddNullPost_ThrowPostNullException()
         {
-            //Arrange
-            var context = InMemoryDatabaseHelper.GetDbContext("Add_NullPost_Db");
-            var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+            using (var context = InMemoryDatabaseHelper.GetDbContext("Add_NullPost_Db"))
+            {
+                //Arrange
+                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
 
-            //Act + Assert
-            Assert.Throws<AddPostException>(() => postRepository.Add(null));
+                //Act + Assert
+                Assert.Throws<AddPostException>(() => postRepository.Add(null));
+            }
         }
     }
 }

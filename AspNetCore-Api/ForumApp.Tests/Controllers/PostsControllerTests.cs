@@ -14,10 +14,10 @@ namespace ForumApp.Tests.Controllers
         [Fact]
         public async Task EmptyTable_AddPostUsingPostEndpoint_ReturnsCreated()
         {
-            //Arrange
-            var postBuilder = new PostBuilder();
             using (var context = InMemoryDatabaseHelper.GetDbContext("FindController_Post_Db"))
             {
+                //Arrange
+                var postBuilder = new PostBuilder();
                 var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
                 var postsController = new PostsController(postRepository);
                 var post = postBuilder.Build();
@@ -26,10 +26,9 @@ namespace ForumApp.Tests.Controllers
                 postRepository.Add(post);
                 context.SaveChanges();
 
-
-                //Assert
                 var apiResponse = await postsController.GetPost(1);
 
+                //Assert
                 var okResponse = apiResponse as OkObjectResult;
                 Assert.NotNull(okResponse);
 
