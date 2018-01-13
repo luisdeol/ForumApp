@@ -1,4 +1,7 @@
-﻿using ForumApp.Infrastructure.Data;
+﻿using ForumApp.Core.Interfaces;
+using ForumApp.Infrastructure.Data;
+using ForumApp.Infrastructure.Data.Repositories;
+using ForumApp.Web.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +23,7 @@ namespace ForumApp.Web
         {
             var connectionString = Configuration.GetConnectionString("ForumAppConnectionString");
 
+            services.AddScoped<IPostRepository, PostRepository>();
             services.InjectDbContext(connectionString);
             services.AddMvc();
         }
@@ -32,6 +36,7 @@ namespace ForumApp.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
     }

@@ -20,7 +20,7 @@ namespace ForumApp.Web.Controllers
             _postRepository = postRepository;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
             var post = await _postRepository.FindAsync(id);

@@ -1,6 +1,7 @@
 ﻿using System;
 using ForumApp.Core;
 using ForumApp.Core.Exceptions;
+using ForumApp.Tests.Builders;
 using ForumApp.Tests.Helpers;
 using Xunit;
 
@@ -12,22 +13,20 @@ namespace ForumApp.Tests.Repositories
         public void EmptyTable_AddPost_CountIsOne()
         {
             //Arrange
-            var context = InMemoryDatabaseHelper.GetDbContext("Add_Post_Db");
-            var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
-
-            var post = new Post
+            using (var context = InMemoryDatabaseHelper.GetDbContext("Add_Post_Db"))
             {
-                Content = "Hi, Post nº 1",
-                CreationDate = DateTime.Now
-            };
+                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+                var postBuilder = new PostBuilder();
+                var post = postBuilder.Build();
 
-            //Act
-            postRepository.Add(post);
+                //Act
+                postRepository.Add(post);
 
-            context.SaveChanges();
+                context.SaveChanges();
 
-            //Assert
-            Assert.Equal(1, post.Id);
+                Assert.Equal(1, post.Id);
+            }
+                
         }
 
         [Theory]

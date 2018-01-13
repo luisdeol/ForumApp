@@ -25,6 +25,7 @@ namespace ForumApp.Tests.Builders
         {
             _post = new Post
             {
+                Id = 1,
                 Content = _testContent,
                 CreationDate = _testCreationDate
             };
