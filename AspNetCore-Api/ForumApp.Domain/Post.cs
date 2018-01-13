@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ForumApp.Domain
+namespace ForumApp.Core
 {
     public class Post
     {

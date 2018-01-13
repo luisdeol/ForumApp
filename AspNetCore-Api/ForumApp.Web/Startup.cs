@@ -1,4 +1,4 @@
-﻿using ForumApp.Infrastructure;
+﻿using ForumApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
