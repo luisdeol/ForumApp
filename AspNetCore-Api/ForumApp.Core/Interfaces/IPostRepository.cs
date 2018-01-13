@@ -7,5 +7,6 @@ namespace ForumApp.Core.Interfaces
         void Add(Post post);
         Post Find(int id);
         Task<Post> FindAsync(int id);
+        int GetCount();
     }
 }

@@ -13,11 +13,4 @@ namespace ForumApp.Infrastructure.Data
 
         public DbSet<Post> Posts { get; set; }
     }
-
-    public static class DatabaseHelper {
-        public static void InjectDbContext(this IServiceCollection service, string connectionString)
-        {
-            service.AddDbContext<ForumAppDbContext>(options => options.UseSqlServer(connectionString));
-        }
-    }
 }

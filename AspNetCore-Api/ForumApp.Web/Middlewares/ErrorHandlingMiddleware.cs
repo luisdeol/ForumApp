@@ -11,18 +11,18 @@ namespace ForumApp.Web.Middlewares
 {
     public class ErrorHandlingMiddleware
     {
-        private readonly RequestDelegate next;
+        private readonly RequestDelegate _next;
 
         public ErrorHandlingMiddleware(RequestDelegate next)
         {
-            this.next = next;
+            _next = next;
         }
 
-        public async Task Invoke(HttpContext context /* other scoped dependencies */)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
-                await next(context);
+                await _next(context);
             }
             catch (Exception ex)
             {
@@ -34,7 +34,7 @@ namespace ForumApp.Web.Middlewares
         {
             var statusCode = HttpStatusCode.InternalServerError;
 
-            if (exception is FindPostException) statusCode = HttpStatusCode.NotFound;
+            if (exception is PostNotFound) statusCode = HttpStatusCode.NotFound;
 
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";

@@ -25,7 +25,7 @@ namespace ForumApp.Tests.Repositories
                 context.SaveChanges();
 
                 //Assert
-                Assert.Equal(1, post.Id);
+                Assert.Equal(1, postRepository.GetCount());
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿using ForumApp.Core.Interfaces;
-using ForumApp.Infrastructure.Data;
+using ForumApp.Web.Extensions;
 using ForumApp.Infrastructure.Data.Repositories;
 using ForumApp.Web.Middlewares;
 using Microsoft.AspNetCore.Builder;
@@ -23,8 +23,9 @@ namespace ForumApp.Web
         {
             var connectionString = Configuration.GetConnectionString("ForumAppConnectionString");
 
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.InjectDbContext(connectionString);
+            services.AddRepositories();
+            services.AddDbContext(connectionString);
+
             services.AddMvc();
         }
 

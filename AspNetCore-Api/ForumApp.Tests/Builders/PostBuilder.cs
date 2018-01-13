@@ -10,25 +10,22 @@ namespace ForumApp.Tests.Builders
         private Post _post;
         private readonly string _testContent = "Test Content";
         private readonly DateTime _testCreationDate = DateTime.Now;
-	private readonly int _testId = 1;
-        public PostBuilder()
-        {
-            _post = WithDefaultValues();
-        }
+        private int _id = 1;
 
         public Post Build()
         {
-            return _post;
+            return WithDefaultValues();
         }
 
         private Post WithDefaultValues()
         {
             _post = new Post
             {
-                Id = _testId,
+                Id = _id++,
                 Content = _testContent,
                 CreationDate = _testCreationDate
             };
+
             return _post;
         }
     }

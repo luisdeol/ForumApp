@@ -28,7 +28,7 @@ namespace ForumApp.Infrastructure.Data.Repositories
             var post = _context.Posts.FirstOrDefault(p=> p.Id == id);
 
             if (post == null)
-                throw new FindPostException(id);
+                throw new PostNotFound(id);
 
             return post;
         }
@@ -38,9 +38,14 @@ namespace ForumApp.Infrastructure.Data.Repositories
             var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
-                throw new FindPostException(id);
+                throw new PostNotFound(id);
 
             return post;
+        }
+
+        public int GetCount()
+        {
+            return _context.Posts.Count();
         }
     }
 }
