@@ -6,6 +6,7 @@ using ForumApp.Core;
 using ForumApp.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading; 
 
 namespace ForumApp.Web.Controllers
 {
@@ -18,6 +19,13 @@ namespace ForumApp.Web.Controllers
         public PostsController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll(){
+            await Task.Delay(100);
+            return Ok();
+        //     return Ok(await _postRepository.FindAll()); 
         }
 
         [HttpGet("{id}", Name="GetPost")]

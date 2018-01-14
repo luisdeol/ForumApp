@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using ForumApp.Core;
 using ForumApp.Core.Exceptions;
 using ForumApp.Core.Interfaces;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumApp.Infrastructure.Data.Repositories
 {
@@ -47,6 +49,10 @@ namespace ForumApp.Infrastructure.Data.Repositories
         public int GetCount()
         {
             return _context.Posts.Count();
+        }
+
+        public async Task<List<Post>> FindAllAsync(){
+            return await _context.Posts.ToListAsync();
         }
     }
 }

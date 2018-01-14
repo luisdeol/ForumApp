@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ForumApp.Core.Interfaces
 {
@@ -8,5 +9,6 @@ namespace ForumApp.Core.Interfaces
         Post Find(int id);
         Task<Post> FindAsync(int id);
         int GetCount();
+        Task<List<Post>> FindAllAsync();
     }
 }
