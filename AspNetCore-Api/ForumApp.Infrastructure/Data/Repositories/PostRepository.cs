@@ -29,7 +29,7 @@ namespace ForumApp.Infrastructure.Data.Repositories
             var post = _context.Posts.FirstOrDefault(p=> p.Id == id);
 
             if (post == null)
-                throw new PostNotFound(id);
+                throw new PostNotFoundException(id);
 
             return post;
         }
@@ -39,7 +39,7 @@ namespace ForumApp.Infrastructure.Data.Repositories
             var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
-                throw new PostNotFound(id);
+                throw new PostNotFoundException(id);
 
             return post;
         }

@@ -37,7 +37,7 @@ namespace ForumApp.Tests.Controllers
         }
         
         [Fact]
-        public void EmptyTable_RequestPostOnePost_CountIsOne(){
+        public void EmptyTable_RequestPostOnePost_CreatedPostAndLocationAreReturned(){
             using (var context = InMemoryDatabaseHelper.GetDbContext("AddPost_Db")){
                 //Arrange
                 var postBuilder = new PostBuilder();

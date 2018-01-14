@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ForumApp.Core.Exceptions;
@@ -34,7 +32,7 @@ namespace ForumApp.Web.Middlewares
         {
             var statusCode = HttpStatusCode.InternalServerError;
 
-            if (exception is PostNotFound) statusCode = HttpStatusCode.NotFound;
+            if (exception is PostNotFoundException) statusCode = HttpStatusCode.NotFound;
 
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";

@@ -3,20 +3,20 @@ using System.Runtime.Serialization;
 
 namespace ForumApp.Core.Exceptions
 {
-    public class PostNotFound : Exception
+    public class PostNotFoundException : Exception
     {
-        public PostNotFound(int postId) : base($"Post {postId} not found!")
+        public PostNotFoundException(int postId) : base($"Post {postId} not found!")
         {
         }
-        public PostNotFound(string message) : base(message)
-        {
-        }
-
-        public PostNotFound(string message, Exception innerException) : base(message, innerException)
+        public PostNotFoundException(string message) : base(message)
         {
         }
 
-        public PostNotFound(SerializationInfo info, StreamingContext context) : base(info, context)
+        public PostNotFoundException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public PostNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }
