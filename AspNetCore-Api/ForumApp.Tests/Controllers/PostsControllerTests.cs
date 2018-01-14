@@ -63,7 +63,7 @@ namespace ForumApp.Tests.Controllers
 
         [Fact]
         public async Task TableWithThreePosts_RequestGetAll_ReturnsOkWithThreePosts(){
-            using (var context = InMemoryDatabaseHelper.GetDbContext("FindAll_Db")){
+            using (var context = InMemoryDatabaseHelper.GetDbContext("GetAll_Db")){
                 //Arrange
                 var postBuilder = new PostBuilder();
                 var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);

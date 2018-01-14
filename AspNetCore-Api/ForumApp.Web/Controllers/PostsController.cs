@@ -23,8 +23,8 @@ namespace ForumApp.Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAll(){
-            await Task.Delay(100);
-            return Ok();
+            var posts =  await _postRepository.FindAllAsync();
+            return Ok(posts);
         //     return Ok(await _postRepository.FindAll()); 
         }
 
