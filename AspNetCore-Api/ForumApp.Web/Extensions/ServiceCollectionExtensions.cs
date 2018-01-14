@@ -1,5 +1,6 @@
 ﻿using ForumApp.Core.Interfaces;
 using ForumApp.Infrastructure.Data;
+using ForumApp.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,7 @@ namespace ForumApp.Web.Extensions
 
         public static void AddRepositories(this IServiceCollection service)
         {
-            service.AddScoped<IPostRepository, IPostRepository>();
+            service.AddScoped<IPostRepository, PostRepository>();
         }
     }
 }

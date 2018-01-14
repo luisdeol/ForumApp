@@ -66,7 +66,7 @@ namespace ForumApp.Tests.Repositories
                 var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
 
                 //Act + Assert
-                Assert.Throws<AddPostException>(() => postRepository.Add(null));
+                Assert.Throws<PostNullException>(() => postRepository.Add(null));
             }
         }
     }

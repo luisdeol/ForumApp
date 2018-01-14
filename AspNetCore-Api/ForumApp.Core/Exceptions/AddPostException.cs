@@ -3,20 +3,20 @@ using System.Runtime.Serialization;
 
 namespace ForumApp.Core.Exceptions
 {
-    public class AddPostException : Exception
+    public class PostNullException : Exception
     {
-        public AddPostException() : base("Post is null!")
+        public PostNullException() : base("Post is null!")
         {
         }
-        public AddPostException(string message) : base(message)
-        {
-        }
-
-        public AddPostException(string message, Exception innerException) : base(message, innerException)
+        public PostNullException(string message) : base(message)
         {
         }
 
-        public AddPostException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public PostNullException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public PostNullException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

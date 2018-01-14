@@ -18,9 +18,10 @@ namespace ForumApp.Infrastructure.Data.Repositories
         public void Add(Post post)
         {
             if (post == null)
-                throw new AddPostException();
+                throw new PostNullException();
 
             _context.Posts.Add(post);
+            _context.SaveChanges();
         }
 
         public Post Find(int id)

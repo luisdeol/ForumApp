@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ForumApp.Web.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Posts")]
+    [Route("api/posts")]
     public class PostsController : Controller
     {
         private readonly IPostRepository _postRepository;
@@ -20,12 +20,21 @@ namespace ForumApp.Web.Controllers
             _postRepository = postRepository;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetPost")]
         public async Task<IActionResult> GetPost(int id)
         {
             var post = await _postRepository.FindAsync(id);
 
             return Ok(post);
+        }
+
+        [HttpPost]
+        public IActionResult AddPost ([FromBody] Post post){
+            _postRepository.Add(post);
+
+            return CreatedAtRoute("GetPost", 
+                                    new { id = post.Id }, 
+                                    post);
         }
     }
 }
