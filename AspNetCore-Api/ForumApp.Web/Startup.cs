@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ForumApp.Web
 {
@@ -27,11 +28,31 @@ namespace ForumApp.Web
             services.AddDbContext(connectionString);
 
             services.AddMvc();
+
+            services.AddSwaggerGen(conf =>
+            {
+                conf.SwaggerDoc("v1", new Info { 
+                    Title = "Forum API",
+                    Description = "ASP.NET Core Web API for consuming Forum Posts sample data.", 
+                    Version = "v1",
+                    Contact = new Contact {
+                        Name = "Luis Felipe",
+                        Url = "https//github.com/luisdeol"
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(conf =>
+            {
+                conf.SwaggerEndpoint("/swagger/v1/swagger.json", "Forum API");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
