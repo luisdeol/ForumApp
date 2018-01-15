@@ -33,6 +33,7 @@ namespace ForumApp.Web.Middlewares
             var statusCode = HttpStatusCode.InternalServerError;
 
             if (exception is PostNotFoundException) statusCode = HttpStatusCode.NotFound;
+            else if (exception is PostNullException) statusCode = HttpStatusCode.BadRequest;
 
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
