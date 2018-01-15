@@ -22,19 +22,12 @@ namespace ForumApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(){
-            var posts =  await _postRepository.FindAllAsync();
-            return Ok(posts);
-        //     return Ok(await _postRepository.FindAll()); 
-        }
+        public async Task<IActionResult> GetAll() =>
+            Ok(await _postRepository.FindAllAsync()); 
 
         [HttpGet("{id}", Name="GetPost")]
-        public async Task<IActionResult> GetPost(int id)
-        {
-            var post = await _postRepository.FindAsync(id);
-
-            return Ok(post);
-        }
+        public async Task<IActionResult> GetPost(int id) =>
+            Ok(await _postRepository.FindAsync(id));
 
         [HttpPost]
         public IActionResult AddPost ([FromBody] Post post){
