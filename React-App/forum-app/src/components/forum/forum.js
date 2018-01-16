@@ -10,10 +10,9 @@ class Forum extends Component {
     }
 
     renderPosts() {
-        console.log(this.props.posts);
         const posts = this.props.posts;
         
-        return _.map(this.props.posts, post => {
+        return _.map(posts, post => {
             return (
                 <Post content={post.content} key={post.id}/>
             )
