@@ -27,6 +27,19 @@ namespace ForumApp.Web
             services.AddRepositories();
             services.AddDbContext(connectionString);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                            .WithOrigins("http://localhost:3000")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                    });
+            });
+
             services.AddMvc();
 
             services.AddSwaggerGen(conf =>
@@ -46,8 +59,7 @@ namespace ForumApp.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:3000"));
+            app.UseCors("AllowAll");
 
             app.UseSwagger();
 
