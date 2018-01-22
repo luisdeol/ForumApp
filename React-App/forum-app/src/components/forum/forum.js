@@ -3,8 +3,9 @@ import _ from 'lodash';
 import Post from '../post/post';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../../actions/index';
-import PostNew from '../new_post/post_new';
 import { Link } from 'react-router-dom';
+
+import './forum.css';
 
 class Forum extends Component {
     componentDidMount() {
@@ -16,19 +17,19 @@ class Forum extends Component {
         
         return _.map(posts, post => {
             return (
-                <Post content={post.content} key={post.id}/>
+                <Post post={post} key={post.id} />
             )
         })
     }
 
     render(){
         return (
-            <div>
+            <div className="forum">
                 <h1>Forum</h1>
                 <Link className="btn btn-primary" to="/posts/new">
                     Add a Post
                 </Link>
-                <ul>
+                <ul className="list-group list-post">
                     {this.renderPosts()}
                 </ul>
             </div>
