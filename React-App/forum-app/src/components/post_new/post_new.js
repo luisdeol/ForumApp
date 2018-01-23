@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { createPost } from '../../actions/index';
+import { Link } from 'react-router-dom';
 
+import { createPost } from '../../actions/index';
+import './post_new.css'
 class PostNew extends Component {
     renderField(field){
         const { meta: { touched, error } } = field
@@ -31,13 +33,17 @@ class PostNew extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field
-                    label="Content"
-                    name="content"
-                    component={this.renderField} />
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+            <div>
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="post-new">
+                    <h3>New Post</h3>
+                    <Link to="/" className="btn btn-link">Back</Link>
+                    <Field
+                        label="Content"
+                        name="content"
+                        component={this.renderField} />
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
         )
     }
 }

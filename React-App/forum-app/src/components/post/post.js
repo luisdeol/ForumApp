@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+import './post.css';
 
 class Post extends Component {
-    constructor(props){
-        super(props);
+    componentDidMount() {
+        const { id } = this.props.match.params;
 
-        const newDate = new Date(props.post.creationDate).toLocaleString();
-
-        this.state = {
-            content: props.post.content,
-            creationDate: newDate
-        }
+        this.setState({
+            id: id
+        });
     }
+
     render() {
+        const { id } = this.props.match.params;
+
+        if (!id) {
+            return <div>Loading...</div>
+        }
+
         return (
-            <li className="list-group-item">
-                <div className="row">
-                    <div className="col-md-8">{this.state.content}</div>
-                    <div clasName="col-md-4">
-                    <p className="pull-right">
-                        {this.state.creationDate}</p>
-                    </div>
-                </div>
-            </li>
+            <div className="post">
+                <h2>Post { id }</h2>
+                <Link to="/" className="btn btn-link">Back</Link>
+                <h4>Comments</h4>
+            </div>
         )
     }
 }
