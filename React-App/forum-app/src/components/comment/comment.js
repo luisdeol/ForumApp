@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Comment = () => {
-    return (<li className="list-group-item">
-        A comment
+const Comment = ({ content, id }) => {
+    return (
+        <li className="list-group-item" key={id}>
+            {content}
         </li>)
 }
 

@@ -14,9 +14,6 @@ class PostItem extends Component {
         }
     }
 
-    // onPostItemClick(item){
-    //     console.log(item.target.value);
-    // }
     render() {
         return (
             <li className="list-group-item">
