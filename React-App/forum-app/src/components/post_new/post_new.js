@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { createPost } from '../../actions/index';
 import './post_new.css'
+
 class PostNew extends Component {
     renderField(field){
         const { meta: { touched, error } } = field

@@ -25,7 +25,8 @@ class Post extends Component {
 
     renderComments() {
         const comments = this.props.comments; //[{ id: 1, content: 'the first comment'},{ id: 2, content: 'the second comment'},{ id: 3, content: 'the third comment'}];
-
+        console.log(comments);
+        
         return _.map(comments, comment => {
             return (<Comment content={comment.content} id={comment.id} key={comment.id}/>)
         })

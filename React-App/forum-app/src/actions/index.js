@@ -28,13 +28,13 @@ export function createPost(values, callback) {
     }
 }   
 
-export function createComment(values, callback) {
+export function createComment(values) {
     // const request = axios
     //                     .post(ROOT_URL_COMMENTS, values)
     //                     .then(() => callback());
-
-    const comment = { content: values.content, id: values.id };
-
+    
+    const comment = { content: values.content, id: values.postId };
+    
     return {
         type: CREATE_COMMENT,
         payload: comment

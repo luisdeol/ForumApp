@@ -32,9 +32,17 @@ class CommentNew extends Component {
         )
     }
 
+    onSubmit(values){
+        values.postId = this.state.postId;
+        this.props.createComment(values);
+        this.props.reset();
+    }
+
     render() {
+        const { handleSubmit } = this.props;
+
         return (
-            <form>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <h4>New comment</h4>
                 <Field 
                     name="content"
