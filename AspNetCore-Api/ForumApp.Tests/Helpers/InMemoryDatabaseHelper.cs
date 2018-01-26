@@ -12,6 +12,11 @@ namespace ForumApp.Tests.Helpers
             return new PostRepository(context);
         }
 
+        public static ICommentRepository GetCommentRepository(ForumAppDbContext context)
+        {
+            return new CommentRepository(context);
+        }
+
         public static ForumAppDbContext GetDbContext(string contextName)
         {
             var options = new DbContextOptionsBuilder<ForumAppDbContext>()

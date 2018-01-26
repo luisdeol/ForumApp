@@ -43,12 +43,14 @@ class CommentNew extends Component {
 
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <h4>New comment</h4>
                 <Field 
                     name="content"
                     component={this.renderField}
                     label="content"
                     />
+                <button type="submit" className="btn btn-primary">
+                    Add New Comment
+                </button>
             </form>)
     }
 }
