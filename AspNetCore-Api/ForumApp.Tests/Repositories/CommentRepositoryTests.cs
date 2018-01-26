@@ -20,7 +20,7 @@ namespace ForumApp.Tests.Repositories
                 commentRepository.Add(comment, post.Id);
                 context.SaveChanges();
 
-                Assert.Equal(1, commentRepository.GetCount());
+                Assert.Equal(1, commentRepository.GetCount(post.Id));
             } 
         }
     }
