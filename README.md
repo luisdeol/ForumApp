@@ -8,6 +8,7 @@ _It is still under development._ :)
 * **ASP.NET Core**
     - xUnit for unit testing
     - Swagger for documentation
+    - Data stored using Entity Framework Core, in a SQL Server database.
 * **React.js + Redux**
 
 ---
