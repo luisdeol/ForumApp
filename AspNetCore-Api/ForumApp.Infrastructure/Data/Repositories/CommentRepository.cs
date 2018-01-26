@@ -1,22 +1,23 @@
 using ForumApp.Core.Interfaces;
 using ForumApp.Core;
+using System.Linq;
 
 namespace ForumApp.Infrastructure.Data.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-        private readonly ForumAppDbContext context;
+        private readonly ForumAppDbContext _context;
         public CommentRepository(ForumAppDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public void Add(Comment comment) {
-
+        public void Add(Comment comment, int postId) {
+            _context.Comments.Add(comment);
         }
 
         public int GetCount() {
-            return 1;
+            return _context.Comments.Count();
         }
     }
 }

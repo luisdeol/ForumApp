@@ -13,9 +13,11 @@ namespace ForumApp.Tests.Repositories
             {
                 var commentRepository = InMemoryDatabaseHelper.GetCommentRepository(context);
                 var commentBuilder = new CommentBuilder();
+                var postBuilder = new PostBuilder();
+                var post = postBuilder.Build();
                 var comment = commentBuilder.Build();
 
-                commentRepository.Add(comment);
+                commentRepository.Add(comment, post.Id);
                 context.SaveChanges();
 
                 Assert.Equal(1, commentRepository.GetCount());

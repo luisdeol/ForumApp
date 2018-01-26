@@ -38,7 +38,7 @@ namespace ForumApp.Infrastructure.Data.Repositories
 
         public async Task<Post> FindAsync(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts.Include(p=> p.Comments).FirstOrDefaultAsync(p=> p.Id == id);
 
             if (post == null)
                 throw new PostNotFoundException(id);
