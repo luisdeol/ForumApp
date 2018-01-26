@@ -8,7 +8,7 @@ _It is still under development._ :)
 * **ASP.NET Core**
     - xUnit for unit testing
     - Swagger for documentation
-* **React.js**
+* **React.js + Redux**
 
 ---
 #### Running the projects
