@@ -54,5 +54,9 @@ namespace ForumApp.Infrastructure.Data.Repositories
         public async Task<List<Post>> FindAllAsync(){
             return await _context.Posts.ToListAsync();
         }
+
+        public void Save(){
+            _context.SaveChanges();
+        }
     }
 }

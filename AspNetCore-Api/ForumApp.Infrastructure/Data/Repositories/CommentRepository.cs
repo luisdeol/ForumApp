@@ -12,13 +12,16 @@ namespace ForumApp.Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public void Add(Comment comment, int postId) {
-            comment.PostId = postId;
+        public void Add(Comment comment) {
             _context.Comments.Add(comment);
         }
 
         public int GetCount(int postId) {
             return _context.Comments.Count(c=> c.PostId == postId);
+        }
+
+        public void Save() {
+            _context.SaveChanges();
         }
     }
 }

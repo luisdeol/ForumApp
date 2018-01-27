@@ -10,5 +10,6 @@ namespace ForumApp.Core.Interfaces
         Task<Post> FindAsync(int id);
         int GetCount();
         Task<List<Post>> FindAllAsync();
+        void Save();
     }
 }

@@ -5,18 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ForumApp.Tests.Helpers
 {
-    public class InMemoryDatabaseHelper
+    public class DatabaseHelper
     {
-        public static IPostRepository GetPostRepository(ForumAppDbContext context)
+        public static IPostRepository GetPostRepository(string contextName)
         {
+            var context = GetDbContext(contextName);
             return new PostRepository(context);
         }
-
-        public static ICommentRepository GetCommentRepository(ForumAppDbContext context)
+        public static ICommentRepository GetCommentRepository(string contextName)
         {
+            var context = GetDbContext(contextName);
             return new CommentRepository(context);
         }
-
         public static ForumAppDbContext GetDbContext(string contextName)
         {
             var options = new DbContextOptionsBuilder<ForumAppDbContext>()

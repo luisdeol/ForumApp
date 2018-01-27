@@ -13,21 +13,17 @@ namespace ForumApp.Tests.Repositories
         [Fact]
         public void EmptyTable_AddPost_CountIsOne()
         {
-            using (var context = InMemoryDatabaseHelper.GetDbContext("Add_Post_Db"))
-            {
-                //Arrange
-                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
-                var postBuilder = new PostBuilder();
-                var post = postBuilder.Build();
+            //Arrange
+            var postRepository = DatabaseHelper.GetPostRepository("Add_Post_Db");
+            var postBuilder = new PostBuilder();
+            var post = postBuilder.Build();
 
-                //Act
-                postRepository.Add(post);
+            //Act
+            postRepository.Add(post);
+            postRepository.Save();
 
-                context.SaveChanges();
-
-                //Assert
-                Assert.Equal(1, postRepository.GetCount());
-            }
+            //Assert
+            Assert.Equal(1, postRepository.GetCount());
         }
 
         [Theory]
@@ -36,63 +32,54 @@ namespace ForumApp.Tests.Repositories
         [InlineData(3)]
         public void TableWithThreePosts_FindForId_ReturnThePostWithId(int postId)
         {  
-            using (var context = InMemoryDatabaseHelper.GetDbContext("Find_Post_Db"))
+            //Arrange
+            var postRepository = DatabaseHelper.GetPostRepository("Find_Post_Db");
+
+            //Act
+            postRepository.Add(new Post
             {
-                //Arrange
-                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+                Id = postId,
+                Content = $"Hi, Post nº {postId}",
+                CreationDate = DateTime.Now.AddDays(postId)
+            });
 
-                //Act
-                postRepository.Add(new Post
-                {
-                    Id = postId,
-                    Content = $"Hi, Post nº {postId}",
-                    CreationDate = DateTime.Now.AddDays(postId)
-                });
+            postRepository.Save();
 
-                context.SaveChanges();
-
-                //Assert
-                var post = postRepository.Find(postId);
-                Assert.NotNull(post);
-                Assert.Equal(postId, post.Id);
-            }  
+            //Assert
+            var post = postRepository.Find(postId);
+            Assert.NotNull(post);
+            Assert.Equal(postId, post.Id);
         }
 
         [Fact]
         public void EmptyTable_AddNullPost_ThrowPostNullException()
         {
-            using (var context = InMemoryDatabaseHelper.GetDbContext("Add_NullPost_Db"))
-            {
-                //Arrange
-                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+            //Arrange
+            var postRepository = DatabaseHelper.GetPostRepository("Add_NullPost_Db");
 
-                //Act + Assert
-                Assert.Throws<PostNullException>(() => postRepository.Add(null));
-            }
+            //Act + Assert
+            Assert.Throws<PostNullException>(() => postRepository.Add(null));
         }
 
         [Fact]
         public async Task TableWithThreePosts_FindAll_ReturnsThreePosts()
         {
-            using (var context = InMemoryDatabaseHelper.GetDbContext("FindAll_Db"))
-            {
-                //Arrange
-                var postBuilder = new PostBuilder();
-                var postRepository = InMemoryDatabaseHelper.GetPostRepository(context);
+            //Arrange
+            var postBuilder = new PostBuilder();
+            var postRepository = DatabaseHelper.GetPostRepository("FindAll_Db");
 
-                postRepository.Add(postBuilder.Build());
-                postRepository.Add(postBuilder.Build());
-                postRepository.Add(postBuilder.Build());
+            postRepository.Add(postBuilder.Build());
+            postRepository.Add(postBuilder.Build());
+            postRepository.Add(postBuilder.Build());
 
-                context.SaveChanges();
+            postRepository.Save();
 
-                //Act
-                var posts = await postRepository.FindAllAsync();
+            //Act
+            var posts = await postRepository.FindAllAsync();
 
-                //Assert
-                Assert.NotNull(posts);
-                Assert.Equal(3, posts.Count);
-            }
+            //Assert
+            Assert.NotNull(posts);
+            Assert.Equal(3, posts.Count);
         }
     }
 }

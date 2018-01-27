@@ -9,19 +9,20 @@ namespace ForumApp.Tests.Repositories
     {
         [Fact]
         public void PostWithNoComments_AddComment_CountIsOne(){
-            using (var context = InMemoryDatabaseHelper.GetDbContext("Add_Post_Db"))
-            {
-                var commentRepository = InMemoryDatabaseHelper.GetCommentRepository(context);
-                var commentBuilder = new CommentBuilder();
-                var postBuilder = new PostBuilder();
-                var post = postBuilder.Build();
-                var comment = commentBuilder.Build();
+            //Arrange
+            var commentRepository = DatabaseHelper.GetCommentRepository("Add_Post_Db");
+            var commentBuilder = new CommentBuilder();
+            var postBuilder = new PostBuilder();
+            var post = postBuilder.Build();
+            var comment = commentBuilder.Build();
+            comment.PostId = post.Id;
 
-                commentRepository.Add(comment, post.Id);
-                context.SaveChanges();
+            //Act
+            commentRepository.Add(comment);
+            commentRepository.Save();
 
-                Assert.Equal(1, commentRepository.GetCount(post.Id));
-            } 
+            //Assert
+            Assert.Equal(1, commentRepository.GetCount(post.Id));
         }
     }
 }
