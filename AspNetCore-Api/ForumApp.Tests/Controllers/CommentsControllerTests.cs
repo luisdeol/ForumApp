@@ -35,5 +35,27 @@ namespace ForumApp.Tests.Controllers
             var objectResponse = okResponse.Value as List<Comment>;
             Assert.Single(objectResponse);
         }
+
+        [Fact]
+        public void PostWithZeroComment_AddPostComment_PostCommentCountReturnOne(){
+            //Assert
+            var commentRepository = DatabaseHelper.GetCommentRepository("Add_Comment_Controller");
+            var commentController = new CommentsController(commentRepository);
+            var postBuilder = new PostBuilder();
+            var commentBuilder = new CommentBuilder();
+            var post = postBuilder.Build();
+            var comment = commentBuilder.Build();
+            comment.PostId = post.Id;
+
+            //Act
+            var apiResponse = commentController.PostComment(comment);
+
+            //Assert
+
+            var okResponse = apiResponse as OkObjectResult;
+            Assert.NotNull(okResponse);
+
+            Assert.Equal(1, commentRepository.GetCount(post.Id));
+        }
     }
 }

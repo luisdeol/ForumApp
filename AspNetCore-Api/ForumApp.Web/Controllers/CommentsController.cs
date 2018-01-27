@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using ForumApp.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using ForumApp.Core;
 
 namespace ForumApp.Web.Controllers
 {
@@ -17,6 +18,14 @@ namespace ForumApp.Web.Controllers
         [HttpGet("{postId}/comments")]
         public async Task<IActionResult> GetComments(int postId){
             return Ok(await _commentRepository.GetCommentsAsync(postId));
+        }
+
+        [HttpPost]
+        public IActionResult PostComment(Comment comment) {
+            _commentRepository.Add(comment);
+            _commentRepository.Save();
+
+            return Ok(comment);
         }
     }
 }
