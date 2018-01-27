@@ -16,6 +16,7 @@ namespace ForumApp.Web.Extensions
         public static void AddRepositories(this IServiceCollection service)
         {
             service.AddScoped<IPostRepository, PostRepository>();
+            service.AddScoped<ICommentRepository, CommentRepository>();
         }
     }
 }

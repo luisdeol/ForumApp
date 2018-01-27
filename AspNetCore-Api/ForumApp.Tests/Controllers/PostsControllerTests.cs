@@ -14,24 +14,24 @@ namespace ForumApp.Tests.Controllers
         [Fact]
         public async Task TableWithOneRow_RequestGetPostIdOne_ReturnsOkWithPost()
         {
-                //Arrange
-                var postBuilder = new PostBuilder();
-                var postRepository = DatabaseHelper.GetPostRepository("FindController_Post_Db");
-                var postsController = new PostsController(postRepository);
-                var post = postBuilder.Build();
-                postRepository.Add(post);
-                postRepository.Save();
+            //Arrange
+            var postBuilder = new PostBuilder();
+            var postRepository = DatabaseHelper.GetPostRepository("FindController_Post_Db");
+            var postsController = new PostsController(postRepository);
+            var post = postBuilder.Build();
+            postRepository.Add(post);
+            postRepository.Save();
 
-                //Act
-                var apiResponse = await postsController.GetPost(1);
+            //Act
+            var apiResponse = await postsController.GetPost(1);
 
-                //Assert
-                var okResponse = apiResponse as OkObjectResult;
-                Assert.NotNull(okResponse);
+            //Assert
+            var okResponse = apiResponse as OkObjectResult;
+            Assert.NotNull(okResponse);
 
-                var modelResponse = okResponse.Value as Post;
-                Assert.NotNull(modelResponse);
-                Assert.Equal(1, modelResponse.Id);
+            var modelResponse = okResponse.Value as Post;
+            Assert.NotNull(modelResponse);
+            Assert.Equal(1, modelResponse.Id);
         }
         
         [Fact]
