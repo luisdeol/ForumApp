@@ -20,8 +20,8 @@ namespace ForumApp.Web.Controllers
             return Ok(await _commentRepository.GetCommentsAsync(postId));
         }
 
-        [HttpPost]
-        public IActionResult PostComment(Comment comment) {
+        [HttpPost("/api/comments")]
+        public IActionResult PostComment([FromBody]Comment comment) {
             _commentRepository.Add(comment);
             _commentRepository.Save();
 
