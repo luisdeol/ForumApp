@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ForumApp.Infrastructure.Data;  
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ForumApp.Web
 {
@@ -14,7 +16,16 @@ namespace ForumApp.Web
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ForumAppDbContext>();
+                DbInitializer.Initialize(context);
+            }
+
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
