@@ -40,7 +40,7 @@ namespace ForumApp.Web
                     });
             });
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
 
             services.AddSwaggerGen(conf =>
             {

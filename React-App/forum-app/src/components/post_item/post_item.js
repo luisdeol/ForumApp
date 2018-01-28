@@ -6,23 +6,25 @@ class PostItem extends Component {
         super(props);
 
         const newDate = new Date(props.post.creationDate).toLocaleString();
+        
+        props.post.creationDate = newDate;
 
         this.state = {
-            content: props.post.content,
-            creationDate: newDate,
-            id: props.post.id
+            post: props.post
         }
     }
 
     render() {
+        const {id, creationDate, title } = this.state.post;
+
         return (
             <li className="list-group-item">
-                <Link to={`/posts/${this.state.id}`}>
+                <Link to={`/posts/${id}`}>
                     <div className="row">
-                        <div className="col-md-8">{this.state.content}</div>
+                        <div className="col-md-8">{title}</div>
                         <div className="col-md-4">
                         <p className="pull-right">
-                            {this.state.creationDate}</p>
+                            {creationDate}</p>
                         </div>
                     </div>
                     <div className="row">

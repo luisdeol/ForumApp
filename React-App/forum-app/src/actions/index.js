@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_POSTS = 'fetch_posts';
+export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_posts';
 export const CREATE_COMMENT = 'create_comment';
 export const FETCH_COMMENTS = 'fetch_comments';
@@ -29,6 +30,15 @@ export function createPost(values, callback) {
     }
 }   
 
+export function fetchPost(id) {
+    const request = axios.get(`${ROOT_URL_POSTS}/${id}`);
+    
+    return {
+        type: FETCH_POST,
+        payload: request
+    }
+}
+
 export function createComment(values) {
     const request = axios
                         .post(ROOT_URL_COMMENTS, values);
@@ -48,9 +58,9 @@ export function fetchComments(id) {
     }
 }
 
-export function cleanCommentsState() {
+export function cleanPostState() {
     return {
         type: CLEAN_COMMENTS_STATE,
-        payload: undefined
+        payload: {}
     }
 }

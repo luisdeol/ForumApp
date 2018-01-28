@@ -39,6 +39,10 @@ class PostNew extends Component {
                     <h3>New Post</h3>
                     <Link to="/" className="btn btn-link">Back</Link>
                     <Field
+                        label="Title"
+                        name="title"
+                        component={this.renderField} />
+                    <Field
                         label="Content"
                         name="content"
                         component={this.renderField} />
@@ -56,6 +60,10 @@ function validate(values) {
         errors.content = "Enter some content please";
     }
 
+    if (!values.title || values.title.length < 5){
+        errors.title = "Enter a minimum of 5 characters Title ";
+    }
+    
     return errors;
 }
 

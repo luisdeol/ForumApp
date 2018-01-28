@@ -6,7 +6,8 @@ using ForumApp.Core;
 using ForumApp.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading; 
+using System.Threading;
+using ForumApp.Web.Dtos;
 
 namespace ForumApp.Web.Controllers
 {
@@ -22,8 +23,12 @@ namespace ForumApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _postRepository.FindAllAsync()); 
+        public async Task<IActionResult> GetAll() {
+            var posts = await _postRepository.FindAllAsync(); 
+            var postDtos = posts.Select(post=> new PostDto(post));
+
+            return Ok(postDtos);
+        }
 
         [HttpGet("{id}", Name="GetPost")]
         public async Task<IActionResult> GetPost(int id) =>

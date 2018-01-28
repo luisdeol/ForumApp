@@ -6,14 +6,17 @@ import { connect } from 'react-redux';
 import './post.css';
 import Comment from '../comment/comment';
 import CommentNew from '../comment_new/comment_new';
-import { fetchComments, cleanCommentsState } from '../../actions/index';
+import { fetchComments, cleanPostState, fetchPost } from '../../actions/index';
 
 class Post extends Component {
     componentDidMount(){
-        this.props.cleanCommentsState();
-        this.props.fetchComments(this.props.match.params.id);
+        this.props.fetchPost(this.props.match.params.id);
     }
 
+    componentWillUnmount(){
+        this.props.cleanPostState();
+    }
+    
     constructor(props) {
         super(props);
 
@@ -25,23 +28,24 @@ class Post extends Component {
     }
 
     renderComments() {
-        const comments = this.props.comments;
-        
+        const comments = this.props.post.comments;
+
         return _.map(comments, comment => {
             return (<Comment content={comment.content} id={comment.id} key={comment.id}/>)
         })
     }
 
     render() {
-        const id = this.state.id;
-
+        const {id, title, content} = this.props.post;
+        
         if (!id) {
             return <div>Loading...</div>
         }
 
         return (
             <div className="post">
-                <h2>Post { id }</h2>
+                <h2>{title}</h2>
+                <p>{content}</p>
                 <Link to="/" className="btn btn-link">Back</Link>
                 <h4>Comments</h4>
                 <CommentNew postId={id}/>
@@ -55,9 +59,10 @@ class Post extends Component {
 
 function mapStateToProps(state){
     return {
-        comments: state.comments
+        comments: state.comments,
+        post: state.post
     }
 }
 
 export default connect(mapStateToProps, 
-                { fetchComments, cleanCommentsState })(Post);
+                { fetchComments, cleanPostState, fetchPost })(Post);
