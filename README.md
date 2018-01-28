@@ -14,6 +14,7 @@ _It is still under development._ :)
 ---
 #### Running the projects
 
+##### First of all, change the Connection String at _AspNetCore-Api/ForumApp.Web/appsettings.Development.json_
 ##### ASP.NET Core
 *Using .NET Core CLI*
 - cd into _AspNetCore-Api_ folder and run the following commands  
