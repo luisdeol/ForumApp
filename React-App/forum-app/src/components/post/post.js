@@ -31,7 +31,7 @@ class Post extends Component {
         const comments = this.props.post.comments;
 
         return _.map(comments, comment => {
-            return (<Comment content={comment.content} id={comment.id} key={comment.id}/>)
+            return (<Comment content={comment.content} id={comment.id} key={comment.id} creationdate={comment.creationDate}/>)
         })
     }
 
@@ -44,9 +44,9 @@ class Post extends Component {
 
         return (
             <div className="post">
+                <Link to="/" className="btn btn-link">Back</Link>
                 <h2>{title}</h2>
                 <p>{content}</p>
-                <Link to="/" className="btn btn-link">Back</Link>
                 <h4>Comments</h4>
                 <CommentNew postId={id}/>
                 <ul className="list-group">

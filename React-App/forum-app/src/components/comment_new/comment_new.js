@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import { createComment } from '../../actions/index';
+import './comment_new.css';
 
 class CommentNew extends Component { 
     constructor(props) {

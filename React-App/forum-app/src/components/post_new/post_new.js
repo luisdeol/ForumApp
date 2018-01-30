@@ -24,6 +24,23 @@ class PostNew extends Component {
         )
     }
 
+    renderTextArea(field) {
+        const { meta: { touched, error } } = field
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        return (
+            <div className={className}>
+                <label>{field.label}</label>
+                <textarea
+                    type="text"
+                    className="form-control"
+                    rows="8"
+                    {...field.input} />
+                <div className="text-help">
+                  {touched ? error : ''}
+                </div>
+            </div>
+        )
+    }
     onSubmit(values) {
         this.props.createPost(values, () => {
             this.props.history.push('/');
@@ -45,7 +62,7 @@ class PostNew extends Component {
                     <Field
                         label="Content"
                         name="content"
-                        component={this.renderField} />
+                        component={this.renderTextArea} />
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
