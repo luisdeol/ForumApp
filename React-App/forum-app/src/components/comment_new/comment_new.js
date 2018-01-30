@@ -58,6 +58,9 @@ class CommentNew extends Component {
 function validate(values) {
     const errors = {};
 
+    if (!values.content)
+        errors.content = "A content is required!";
+        
     return errors;
 }
 

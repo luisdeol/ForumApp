@@ -4,7 +4,6 @@ export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_posts';
 export const CREATE_COMMENT = 'create_comment';
-export const FETCH_COMMENTS = 'fetch_comments';
 export const CLEAN_COMMENTS_STATE = 'clean_comment_state';
 
 const ROOT_URL_POSTS = 'http://localhost:62324/api/posts';
@@ -45,15 +44,6 @@ export function createComment(values) {
 
     return {
         type: CREATE_COMMENT,
-        payload: request
-    }
-}
-
-export function fetchComments(id) {
-    const request = axios.get(`${ROOT_URL_POSTS}/${id}/comments`);
-
-    return {
-        type: FETCH_COMMENTS,
         payload: request
     }
 }

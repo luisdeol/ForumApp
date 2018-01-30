@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import './post.css';
 import Comment from '../comment/comment';
 import CommentNew from '../comment_new/comment_new';
-import { fetchComments, cleanPostState, fetchPost } from '../../actions/index';
+import { cleanPostState, fetchPost } from '../../actions/index';
 
 class Post extends Component {
     componentDidMount(){
@@ -65,4 +65,4 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, 
-                { fetchComments, cleanPostState, fetchPost })(Post);
+                { cleanPostState, fetchPost })(Post);
