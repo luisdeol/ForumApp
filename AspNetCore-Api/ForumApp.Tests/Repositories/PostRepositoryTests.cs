@@ -81,5 +81,25 @@ namespace ForumApp.Tests.Repositories
             Assert.NotNull(posts);
             Assert.Equal(3, posts.Count);
         }
+
+        [Fact]
+        public async Task ThreePostsOneWithOrangeInTitle_SearchForOrange_ShouldReturnOne() {
+            //Arrange
+            var postBuilder = new PostBuilder();
+            var postRepository = DatabaseHelper.GetPostRepository("Search_Keyword_Db");
+
+            postRepository.Add(postBuilder.Build("Harry Potter"));
+            postRepository.Add(postBuilder.Build("Lord of the rings"));
+            postRepository.Add(postBuilder.Build("A Clockwork Orange"));
+            postRepository.Save();
+
+            //Act
+            var searchResults  = await postRepository.SearchByTitleAsync("Orange");
+
+
+            //Assert
+            Assert.NotNull(searchResults);
+            Assert.Single(searchResults);
+        }
     }
 }

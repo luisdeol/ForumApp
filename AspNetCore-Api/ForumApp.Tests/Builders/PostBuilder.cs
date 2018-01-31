@@ -17,6 +17,10 @@ namespace ForumApp.Tests.Builders
             return WithDefaultValues();
         }
 
+        public Post Build(string title) {
+            return WithCustomTitle(title);
+        }
+
         private Post WithDefaultValues()
         {
             _post = new Post
@@ -24,6 +28,19 @@ namespace ForumApp.Tests.Builders
                 Id = _id++,
                 Content = _testContent,
                 CreationDate = _testCreationDate
+            };
+
+            return _post;
+        }
+
+         private Post WithCustomTitle(string title)
+        {
+            _post = new Post
+            {
+                Id = _id++,
+                Content = _testContent,
+                CreationDate = _testCreationDate,
+                Title = title
             };
 
             return _post;

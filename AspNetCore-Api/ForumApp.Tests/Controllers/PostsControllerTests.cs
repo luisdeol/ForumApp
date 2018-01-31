@@ -6,6 +6,7 @@ using ForumApp.Web.Controllers;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using ForumApp.Web.Dtos;
 
 namespace ForumApp.Tests.Controllers
 {
@@ -75,7 +76,7 @@ namespace ForumApp.Tests.Controllers
             var okResponse = apiResponse as OkObjectResult;
             Assert.NotNull(okResponse);
 
-            var postList = okResponse.Value as List<Post>;
+            var postList = okResponse.Value as List<PostDto>;
             Assert.NotNull(postList);
         }    
     }

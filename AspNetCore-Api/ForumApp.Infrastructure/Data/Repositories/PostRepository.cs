@@ -55,6 +55,11 @@ namespace ForumApp.Infrastructure.Data.Repositories
             return await _context.Posts.ToListAsync();
         }
 
+        public async Task<List<Post>> SearchByTitleAsync(string searchKeyword) {
+            return await _context.Posts.Where(p=> p.Title.Contains(searchKeyword))
+                        .ToListAsync();
+        }
+
         public void Save(){
             _context.SaveChanges();
         }
