@@ -1,4 +1,4 @@
-import { FETCH_POST, CREATE_COMMENT, CLEAN_COMMENTS_STATE } from './../actions/index';
+import { FETCH_POST, CREATE_COMMENT, CLEAN_POST_STATE } from './../actions/index';
 
 export default function(state={}, action){
     switch(action.type){
@@ -8,7 +8,7 @@ export default function(state={}, action){
             return Object.assign({}, state, {
                 comments: [...state.comments, action.payload.data]
             });
-        case CLEAN_COMMENTS_STATE:
+        case CLEAN_POST_STATE:
             return {};
         default :
             return state;

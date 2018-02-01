@@ -23,8 +23,11 @@ namespace ForumApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() {
-            var posts = await _postRepository.FindAllAsync(); 
+        public async Task<IActionResult> GetAll(string title = "") {
+            if (title == null)
+                title = "";
+                
+            var posts = await _postRepository.SearchByTitleAsync(title); 
             var postDtos = posts.Select(post=> new PostDto(post)).ToList();
 
             return Ok(postDtos);

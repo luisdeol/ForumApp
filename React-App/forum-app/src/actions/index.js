@@ -4,7 +4,8 @@ export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_posts';
 export const CREATE_COMMENT = 'create_comment';
-export const CLEAN_COMMENTS_STATE = 'clean_comment_state';
+export const CLEAN_POST_STATE = 'clean_post_state';
+export const SEARCH_POSTS = 'search_posts';
 
 const ROOT_URL_POSTS = 'http://localhost:62324/api/posts';
 const ROOT_URL_COMMENTS = 'http://localhost:62324/api/comments';
@@ -50,7 +51,16 @@ export function createComment(values) {
 
 export function cleanPostState() {
     return {
-        type: CLEAN_COMMENTS_STATE,
+        type: CLEAN_POST_STATE,
         payload: {}
+    }
+}
+
+export function searchByTitle(title, callback) {
+    const request = axios.get(`${ROOT_URL_POSTS}?title=${title}`);
+
+    return {
+        type: SEARCH_POSTS,
+        payload: request
     }
 }

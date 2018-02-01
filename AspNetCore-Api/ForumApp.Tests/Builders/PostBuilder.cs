@@ -10,6 +10,7 @@ namespace ForumApp.Tests.Builders
         private Post _post;
         private readonly string _testContent = "Test Content";
         private readonly DateTime _testCreationDate = DateTime.Now;
+        private readonly string _testTitle = "Test Title";
         private int _id = 1;
 
         public Post Build()
@@ -27,7 +28,8 @@ namespace ForumApp.Tests.Builders
             {
                 Id = _id++,
                 Content = _testContent,
-                CreationDate = _testCreationDate
+                CreationDate = _testCreationDate,
+                Title = _testTitle
             };
 
             return _post;

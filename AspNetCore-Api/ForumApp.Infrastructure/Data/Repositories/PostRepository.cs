@@ -5,6 +5,7 @@ using ForumApp.Core.Exceptions;
 using ForumApp.Core.Interfaces;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace ForumApp.Infrastructure.Data.Repositories
 {
@@ -51,11 +52,7 @@ namespace ForumApp.Infrastructure.Data.Repositories
             return _context.Posts.Count();
         }
 
-        public async Task<List<Post>> FindAllAsync(){
-            return await _context.Posts.ToListAsync();
-        }
-
-        public async Task<List<Post>> SearchByTitleAsync(string searchKeyword) {
+        public async Task<List<Post>> SearchByTitleAsync(string searchKeyword = "") {
             return await _context.Posts.Where(p=> p.Title.Contains(searchKeyword))
                         .ToListAsync();
         }

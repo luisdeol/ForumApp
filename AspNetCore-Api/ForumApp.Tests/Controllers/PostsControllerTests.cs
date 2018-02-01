@@ -78,6 +78,28 @@ namespace ForumApp.Tests.Controllers
 
             var postList = okResponse.Value as List<PostDto>;
             Assert.NotNull(postList);
-        }    
+        }
+
+        [Fact]
+        public async Task ThreePostsOneWithOrangeInTitle_SearchForOrange_ShouldReturnOne() {
+            //Arrange
+            var postRepository = DatabaseHelper.GetPostRepository("Search_Post_Controller");
+            var postBuilder = new PostBuilder();
+            var postController = new PostsController(postRepository);
+            postRepository.Add(postBuilder.Build("Harry Potter"));
+            postRepository.Add(postBuilder.Build("Lord of the rings"));
+            postRepository.Add(postBuilder.Build("A Clockwork Orange"));
+            postRepository.Save();
+
+            //Act
+            var apiResponse = await postController.GetAll("Orange");
+            var okResponse = apiResponse as OkObjectResult;
+            var postList = okResponse.Value as List<PostDto>;
+            
+            //Assert
+            Assert.NotNull(okResponse);
+            Assert.NotNull(postList);
+            Assert.Single(postList);
+        }
     }
 }

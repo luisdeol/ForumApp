@@ -75,7 +75,7 @@ namespace ForumApp.Tests.Repositories
             postRepository.Save();
 
             //Act
-            var posts = await postRepository.FindAllAsync();
+            var posts = await postRepository.SearchByTitleAsync();
 
             //Assert
             Assert.NotNull(posts);
@@ -95,7 +95,6 @@ namespace ForumApp.Tests.Repositories
 
             //Act
             var searchResults  = await postRepository.SearchByTitleAsync("Orange");
-
 
             //Assert
             Assert.NotNull(searchResults);

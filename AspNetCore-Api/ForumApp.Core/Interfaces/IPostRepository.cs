@@ -9,8 +9,7 @@ namespace ForumApp.Core.Interfaces
         Post Find(int id);
         Task<Post> FindAsync(int id);
         int GetCount();
-        Task<List<Post>> FindAllAsync();
-        Task<List<Post>> SearchByTitleAsync(string searchKeyword);
+        Task<List<Post>> SearchByTitleAsync(string searchKeyword = "");
         void Save();
     }
 }
