@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using ForumApp.Web.Models;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace ForumApp.Web
 {
@@ -26,6 +31,38 @@ namespace ForumApp.Web
 
             services.AddRepositories();
             services.AddDbContext(connectionString);
+
+            var signingConfigurations = new SigningConfigurations();
+            services.AddSingleton(signingConfigurations);
+
+            var tokenConfigurations = new TokenConfigurations();
+            new ConfigureFromConfigurationOptions<TokenConfigurations>(
+                Configuration.GetSection("TokenConfigurations")
+            ).Configure(tokenConfigurations);
+            services.AddSingleton(tokenConfigurations);
+
+             services.AddAuthentication(authOptions =>
+            {
+                authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
+                {
+                    var paramsValidation = bearerOptions.TokenValidationParameters;
+                    paramsValidation.IssuerSigningKey = signingConfigurations.Key;
+                    paramsValidation.ValidAudience = tokenConfigurations.Audience;
+                    paramsValidation.ValidIssuer = tokenConfigurations.Issuer;
+                    paramsValidation.ValidateIssuerSigningKey = true;
+                    paramsValidation.ValidateLifetime = true;
+
+                    paramsValidation.ClockSkew = TimeSpan.Zero;
+                });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
 
             services.AddCors(options =>
             {
