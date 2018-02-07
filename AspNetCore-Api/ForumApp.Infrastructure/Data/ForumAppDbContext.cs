@@ -13,7 +13,7 @@ namespace ForumApp.Infrastructure.Data
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        
+                public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Post>()
@@ -23,6 +23,9 @@ namespace ForumApp.Infrastructure.Data
 
             modelBuilder.Entity<Comment>()
                 .HasKey(c => c.Id);
+
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.Id);
 
             modelBuilder.Entity<Comment>()
                 .Property(c => c.Content)

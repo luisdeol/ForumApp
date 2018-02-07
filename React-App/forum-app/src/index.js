@@ -21,9 +21,9 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
         <div>
             <NavBar />        
             <Switch>
+                <Route exact path="/" component={Forum} />
                 <Route path="/posts/new" component={PostNew} />
                 <Route path="/posts/:id" component={Post} />
-                <Route path="/" component={Forum} />
             </Switch>
         </div>
     </ BrowserRouter>
