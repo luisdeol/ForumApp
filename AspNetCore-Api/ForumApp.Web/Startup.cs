@@ -12,6 +12,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using ForumApp.Core;
+using ForumApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace ForumApp.Web
 {
@@ -100,8 +103,10 @@ namespace ForumApp.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, RoleManager<ApplicationRole> roleManager)
         {
+            DbInitializer.SeedRoles(roleManager);
+
             app.UseCors("AllowAll");
 
             app.UseSwagger();
