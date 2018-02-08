@@ -61,7 +61,11 @@ namespace ForumApp.Web
             {
                 auth.AddPolicy("ForumUser", new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
+                    .RequireRole("ForumUser").Build());
+
+                auth.AddPolicy("AdminUser", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireRole("AdminUser").Build());
             });
 
             services.AddCors(options =>
@@ -76,6 +80,8 @@ namespace ForumApp.Web
                             .AllowCredentials();
                     });
             });
+
+            services.AddIdentity(connectionString);
 
             services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
 
@@ -111,6 +117,7 @@ namespace ForumApp.Web
             }
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
             app.UseMvc();
         }
     }

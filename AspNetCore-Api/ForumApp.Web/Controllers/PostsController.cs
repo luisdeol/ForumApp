@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using ForumApp.Web.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ForumApp.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace ForumApp.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminUser")]
         public async Task<IActionResult> GetAll(string title = "") {
             if (title == null)
                 title = "";
@@ -34,6 +36,7 @@ namespace ForumApp.Web.Controllers
         }
 
         [HttpGet("{id}", Name="GetPost")]
+        [Authorize(Policy = "ForumUser")]
         public async Task<IActionResult> GetPost(int id) =>
             Ok(await _postRepository.FindAsync(id));
 

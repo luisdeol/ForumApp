@@ -11,9 +11,10 @@ using System;
 namespace ForumApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ForumAppDbContext))]
-    partial class ForumAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180208010728_AddedIdentityUser")]
+    partial class AddedIdentityUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
